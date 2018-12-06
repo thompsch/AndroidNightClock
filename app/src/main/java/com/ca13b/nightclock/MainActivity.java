@@ -1,21 +1,17 @@
 package com.ca13b.nightclock;
 
-import android.app.ActionBar;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import java.util.Calendar;
 
@@ -24,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     java.util.Date date;
     Boolean dotsOn = true;
     public Thread thread;
-    private static ImageButton btnAlarm;
+    private static Button btnAlarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         hideAll();
         AlarmReceiver.setMainActivity(this);
+
+        findViewById(R.id.time).setOnTouchListener(new TouchListener(getApplicationContext(), MainActivity.this));
 
         btnAlarm = findViewById(R.id.btnAlarm);
         btnAlarm.setOnClickListener(new View.OnClickListener() {
@@ -120,17 +118,21 @@ public class MainActivity extends AppCompatActivity {
 
         AlarmReceiver.pendingIntent = pendingIntent;
 
-        TextView tvAlarmTime = mainActivity.findViewById(R.id.alarmTime);
-        tvAlarmTime.setText(DateFormat.format("HH:mm", calendar.getTime()));
+        Button btnAlarm = mainActivity.findViewById(R.id.btnAlarm);
+        btnAlarm.setText(DateFormat.format("HH:mm", calendar.getTime()));
 
-        btnAlarm.setImageResource(R.drawable.ic_baseline_alarm_on_24px);
+        Drawable img = mainActivity.getDrawable(R.drawable.ic_baseline_alarm_on_24px);
+        btnAlarm.setCompoundDrawablesWithIntrinsicBounds(img,
+                null, null, null);
     }
 
     public void ClearAlarm(){
-        TextView tvAlarmTime = findViewById(R.id.alarmTime);
-        tvAlarmTime.setText("");
-        ImageButton btnAlarm = findViewById(R.id.btnAlarm);
-        btnAlarm.setImageResource(R.drawable.ic_baseline_alarm_add_24px);
+        Button btnAlarm = findViewById(R.id.btnAlarm);
+        btnAlarm.setText("--");
+        Drawable img = getDrawable(R.drawable.ic_baseline_alarm_add_24px);
+        btnAlarm.setCompoundDrawablesWithIntrinsicBounds(img,
+                null, null, null);
         AlarmPicker.alarmIsSet = false;
+
     }
 }

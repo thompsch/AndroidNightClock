@@ -61,22 +61,18 @@
             />
     </android.support.constraint.ConstraintLayout>
 
-    <ImageButton
+    <Button
         android:id="@+id/btnAlarm"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_editor_absoluteY="0dp"
-        android:src="@drawable/ic_baseline_alarm_add_24px"
+        android:drawableLeft="@drawable/ic_baseline_alarm_add_24px"
+        android:background="@color/colorAlarmOn"
+        android:text="--"
+        android:textColor="#FF000000"
+
         />
-    <TextView
-        android:id="@+id/alarmTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/btnAlarm"
-        app:layout_constraintBottom_toBottomOf="@id/btnAlarm"
-        android:textSize="20sp"
-        />
+
 
 </android.support.constraint.ConstraintLayout>
